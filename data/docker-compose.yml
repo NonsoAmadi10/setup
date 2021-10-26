@@ -10,6 +10,15 @@ services:
   server:
     <<: *redash-service
     command: server
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.node-server.rule=Host(`anallytics.revadeep.xyz`)"
+      - "traefik.http.routers.node-server.entrypoints=websecure"
+      - "traefik.http.routers.node-server.tls.certresolver=myresolver"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.redirs.entrypoints=web"
+      - "traefik.http.routers.redirs.middlewares=redirect-to-https"
     ports:
       - "5000:5000"
     environment:
