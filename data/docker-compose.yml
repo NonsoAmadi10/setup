@@ -1,6 +1,6 @@
 version: "2"
 x-redash-service: &redash-service
-  image: redash/redash:8.0.0.b32245
+  image: redash/redash:10.1.0.b50633
   depends_on:
     - postgres
     - redis
@@ -12,7 +12,7 @@ services:
     command: server
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.node-server.rule=Host(`anallytics.revadeep.xyz`)"
+      - "traefik.http.routers.node-server.rule=Host(`etl.revadeep.xyz`)"
       - "traefik.http.routers.node-server.entrypoints=websecure"
       - "traefik.http.routers.node-server.tls.certresolver=myresolver"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
